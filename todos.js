@@ -72,18 +72,25 @@ function render() {
   // else, not render
 }
 
+function createLiElement(text) {
+  const liElement = document.createElement("li");
+  liElement.textContent = text;
+  return liElement;
+}
+
 const addTodoBtn = document.getElementById("add-btn");
 const toDoInput = document.getElementById("new-todo-input");
-const todoListContainer = document.getElementById("todo-list-container");
+const todoListElement = document.getElementById("todo-list");
 
 addTodoBtn.addEventListener("click", () => {
-  console.log("click add todo");
+  // TODO: remove this test use
+  // todoListElement.appendChild(createLiElement("first"));
 });
 
 toDoInput.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "Enter":
-      console.log("press enter");
+      // console.log("press enter");
       break;
     default:
       break;
