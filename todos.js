@@ -71,3 +71,21 @@ function render() {
   // if todo status is EDITING, render editing item (find key in pendingTodoMap)
   // else, not render
 }
+
+const addTodoBtn = document.getElementById("add-btn");
+const toDoInput = document.getElementById("new-todo-input");
+const todoListContainer = document.getElementById("todo-list-container");
+
+addTodoBtn.addEventListener("click", () => {
+  console.log("click add todo");
+});
+
+toDoInput.addEventListener("keydown", (event) => {
+  switch (event.code) {
+    case "Enter":
+      console.log("press enter");
+      break;
+    default:
+      break;
+  }
+});
