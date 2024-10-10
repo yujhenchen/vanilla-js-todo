@@ -95,6 +95,7 @@ function createEditingLiElement(id, text) {
   saveButton.textContent = "Save";
   saveButton.addEventListener("click", (event) => {
     todoList[id].status = Status.OPEN;
+    todoList[id].text = inputElement.value;
     render();
   });
 
