@@ -1,3 +1,7 @@
+const addTodoBtn = document.getElementById("add-btn");
+const toDoInput = document.getElementById("new-todo-input");
+const todoListElement = document.getElementById("todo-list");
+
 const todoList = [];
 
 const Status = Object.freeze({
@@ -38,10 +42,8 @@ class Todo {
 
 const pendingTodoMap = new Map();
 
-function handleAdd() {
-  // call validate
-  // if true, add to todoList
-  // else show error message
+function createTodo(text) {
+  todoList.push(new Todo(text));
 }
 
 function Validate(newTodo) {
@@ -65,32 +67,73 @@ function handleComplete() {
   // find the to do with the key in todoList, update the status to DONE
 }
 
+function cleanInput() {
+  toDoInput.value = "";
+}
+
 function render() {
-  // iterate todoList,
-  // if todo status is OPEN, render open item
-  // if todo status is EDITING, render editing item (find key in pendingTodoMap)
-  // else, not render
+  todoListElement.innerHTML = "";
+  todoList.forEach((todo, index) => {
+    const liEle =
+      todo.status === Status.OPEN
+        ? createLiElement(index, todo.text)
+        : todo.status === Status.EDITING
+        ? createEditingLiElement(index, todo.text)
+        : null;
+    todoListElement.appendChild(liEle);
+  });
 }
 
-function createLiElement(text) {
-  const liElement = document.createElement("li");
-  liElement.textContent = text;
-  return liElement;
+function createEditingLiElement(id, text) {
+  const element = document.createElement("li");
+  element.id = id;
+
+  const inputElement = document.createElement("input");
+  inputElement.value = text;
+
+  const saveButton = document.createElement("button");
+  saveButton.textContent = "Save";
+  saveButton.addEventListener("click", (event) => {
+    todoList[id].status = Status.OPEN;
+    render();
+  });
+
+  const cancelButton = document.createElement("button");
+  cancelButton.textContent = "Cancel";
+  cancelButton.addEventListener("click", (event) => {
+    todoList[id].status = Status.OPEN;
+    render();
+  });
+
+  element.append(inputElement);
+  element.appendChild(saveButton);
+  element.appendChild(cancelButton);
+  return element;
 }
 
-const addTodoBtn = document.getElementById("add-btn");
-const toDoInput = document.getElementById("new-todo-input");
-const todoListElement = document.getElementById("todo-list");
+function createLiElement(id, text) {
+  const element = document.createElement("li");
+  element.id = id;
+  element.textContent = text;
+  element.addEventListener("click", (event) => {
+    todoList[+event.target.id].status = Status.EDITING;
+    render();
+  });
+  return element;
+}
 
 addTodoBtn.addEventListener("click", () => {
-  // TODO: remove this test use
-  // todoListElement.appendChild(createLiElement("first"));
+  createTodo(toDoInput.value);
+  cleanInput();
+  render();
 });
 
 toDoInput.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "Enter":
-      // console.log("press enter");
+      createTodo(toDoInput.value);
+      cleanInput();
+      render();
       break;
     default:
       break;
