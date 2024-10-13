@@ -67,6 +67,14 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: gray;
+}
+
+button:disabled:hover {
+  background-color: gray;
+}
+
 button:hover {
   background-color: #4338ca; /* Slightly darker shade on hover */
 }
@@ -84,10 +92,17 @@ ul#todo-list {
 }
 
 ul#todo-list li {
+  display: flex;
+  place-content: space-between;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   background-color: #e5e7eb; /* Light gray background */
   border-radius: 5px;
   font-size: 1rem;
   color: #111827; /* Dark text */
+}
+
+ul#todo-list li button {
+  width: fit-content;
+  height: 100%;
 }
