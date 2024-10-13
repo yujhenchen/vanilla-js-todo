@@ -50,27 +50,6 @@ function Validate(newTodo) {
   return typeof newTodo === "string" && newTodo.length > 3;
 }
 
-function handleEdit() {
-  // add <key, todo> into pendingTodoMap, change the status to EDITING
-}
-
-function handleCancel() {
-  // remove <key, todo> into pendingTodoMap, change the status to OPEN
-}
-
-function handleUpdate() {
-  // find the to do with the key in todoList, update the text
-  // remove <key, todo> into pendingTodoMap, change the status to OPEN
-}
-
-function handleComplete() {
-  // find the to do with the key in todoList, update the status to DONE
-}
-
-function cleanInput() {
-  toDoInput.value = "";
-}
-
 function render() {
   todoListElement.innerHTML = "";
   todoList.forEach((todo, index) => {
